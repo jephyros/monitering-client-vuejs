@@ -26,7 +26,7 @@
                         <th scope="col">이메일</th>
                     </tr>
                 </thead>
-                <tbody v-for="(user,index) in users"
+                <tbody v-for="(user,index) in $store.state.users"
                     :key="index"
 
                     >
@@ -59,17 +59,12 @@ export default {
 
     data(){
         return{
-            users:[
-                {userId:'cis',name:'최인석',email:'cis@mail.com'},
-                {userId:'lss',name:'이순신',email:'lss@mail.com'},
-                {userId:'hgd',name:'홍길동',email:'hgd@mail.com'}
-
-            ]
+            
         }
     },
     mounted(){
         EventBus.$on('signUp',users => {
-            this.users.push(users)
+            this.$store.state.users.push(users)
         })
     },
 

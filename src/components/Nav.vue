@@ -31,6 +31,9 @@
             <router-link to="/admin" tag="li" class="nav-item">
               <a class="nav-link waves-effect" href="#" target="">Admin</a>
             </router-link>
+            <router-link to="/user" tag="li" class="nav-item">
+              <a class="nav-link waves-effect" href="#" target="">User</a>
+            </router-link>
             
           </ul>
 

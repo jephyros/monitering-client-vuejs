@@ -29,6 +29,10 @@
                 <input type="text" id="email" class="form-control form-control-sm" v-model="email">
                 <label for="email">이메일</label>
             </div>
+            <div class="md-form form-sm">
+                <input type="text" id="address" class="form-control form-control-sm" v-model="address">
+                <label for="address">지역</label>
+            </div>
             <button type="button" class="btn btn-primary" @click="signUP">가입</button>
         </div>
 
@@ -42,6 +46,8 @@
 
 <script>
 import {EventBus} from '@/main.js'
+//import {mapMutations} from 'vuex'
+import {mapActions} from 'vuex'
 export default {
     
     created(){
@@ -52,25 +58,35 @@ export default {
         return {
             userid:null,
             username:null,
-            email:null
+            email:null,
+            address:null
             
         }
     },
 
     methods:{
+        //...mapMutations(['addUser']),
+        ...mapActions(['addUser']),
         signUP(){
             let userObj ={
                 userId:this.userid,
                 name: this.username,
-                email : this.email
+                email : this.email,
+                address: this.address
             }
-            EventBus.$emit('signUp',userObj)
+            //this.$store.dispatch('addUser',userObj)
+            //this.$store.commit('addUser',userObj)
+            this.addUser(userObj)
+            //EventBus.$emit('signUp',userObj)
             this.clearForm()
         },
         clearForm(){
             this.userid=null,
             this.username=null,
-            this.email=null
+            this.email=null,
+            this.address = null
+
+
         }
     }
     

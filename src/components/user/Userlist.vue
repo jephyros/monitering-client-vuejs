@@ -70,7 +70,7 @@ export default {
     computed :{
         ...mapGetters({
             count:'user/usersCount',
-            scount : 'userrseoulCount',
+            scount : 'user/seoulCount',
             percent : 'user/SEOUL_PERCENT',
             users : 'user/USER_LISTS'
 

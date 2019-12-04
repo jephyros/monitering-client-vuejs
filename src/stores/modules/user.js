@@ -1,10 +1,5 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-
-
-Vue.use(Vuex)
-
-export default new Vuex.Store({
+export default {
+    namespaced: true,
     state:{
         users:[
             {userId:'cis',name:'최인석',email:'cis@mail.com',address:"서울"},
@@ -21,8 +16,12 @@ export default new Vuex.Store({
         seoulCount: state=>{
             return state.users.filter(v=>v.address=="서울").length
         },
-        seoulPercent: (state,getters) =>{
+        SEOUL_PERCENT: (state,getters) =>{
             return Math.round(getters.seoulCount / getters.usersCount * 10000) / 100.0
+        },
+        USER_LISTS: state=>{
+            return state.users;
+
         }
 
     },
@@ -38,4 +37,4 @@ export default new Vuex.Store({
         }
         
     }
-})
+}

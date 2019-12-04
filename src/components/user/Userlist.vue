@@ -56,7 +56,7 @@
 
 <script>
 import {EventBus} from '@/main.js'
-import {mapState,mapGetters} from 'vuex'
+import {mapGetters} from 'vuex'
 export default {    
     created(){
 
@@ -69,14 +69,11 @@ export default {
     },
     computed :{
         ...mapGetters({
-            count:'usersCount',
-            scount : 'seoulCount',
-            percent : 'seoulPercent'
+            count:'user/usersCount',
+            scount : 'userrseoulCount',
+            percent : 'user/SEOUL_PERCENT',
+            users : 'user/USER_LISTS'
 
-
-        }),
-        ...mapState({
-            users:'users'
         })
         //...mapState(['users'])
             
@@ -84,9 +81,9 @@ export default {
         //...mapGetters(['usersCount','seoulCount','seoulPercent'])
     },
     mounted(){
-        EventBus.$on('signUp',users => {
-            this.$store.state.users.push(users)
-        })
+        // EventBus.$on('signUp',users => {
+        //     this.$store.state.users.push(users)
+        // })
     },
 
     methods:{

@@ -14,7 +14,7 @@
         <!--Card content-->
         <div class="card-body">
             <!--Title-->
-            <h4 class="card-title">회원가입</h4>
+            <h4 class="card-title">회원가입(Sample)</h4>
             <!--Text-->
       
             <div class="md-form form-sm">

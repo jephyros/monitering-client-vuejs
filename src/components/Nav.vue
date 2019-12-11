@@ -38,21 +38,19 @@
           </ul>
 
           <!-- Right -->
-          <ul class="navbar-nav nav-flex-icons">
-            <li class="nav-item">
-              <a href="https://www.facebook.com/mdbootstrap" class="nav-link waves-effect" target="_blank">
-                <i class="fab fa-facebook-f"></i>
+          <ul class="navbar-nav nav-flex-icons">     
+         
+            <router-link to="/signup" tag="li" class="nav-item">
+              <a href="#" class="nav-link border border-light rounded waves-effect">
+                <i class="fab fa-github mr-2"></i>회원가입
               </a>
-            </li>
+            </router-link>
+            
+
             <li class="nav-item">
-              <a href="https://twitter.com/MDBootstrap" class="nav-link waves-effect" target="_blank">
-                <i class="fab fa-twitter"></i>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="https://github.com/mdbootstrap/bootstrap-material-design" class="nav-link border border-light rounded waves-effect"
+              <a href="https://github.com/jephyros" class="nav-link border border-light rounded waves-effect"
                 target="_blank">
-                <i class="fab fa-github mr-2"></i>MDB GitHub
+                <i class="fab fa-github mr-2"></i>GitHub
               </a>
             </li>
           </ul>

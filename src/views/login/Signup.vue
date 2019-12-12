@@ -7,7 +7,7 @@
             <!--Section: Cards-->
             <section class="text-center">
                 <!--Grid row-->
-                <div class="row mb-4 wow fadeIn">                      
+                <div class="row mb-4 wow fadeIn">                                          
                     <Signup/>
                 </div>
             </section>
@@ -19,15 +19,16 @@
 
 <script>
 
-import Userlist from '@/components/user/Userlist.vue'
+
 import Signup from '@/components/login/Signup.vue'
+
 
 export default {
     created(){
 
     },
     components: {
-            Userlist,Signup
+            Signup
     },
 
     data(){

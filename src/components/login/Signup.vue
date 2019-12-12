@@ -1,6 +1,6 @@
 <template>
   <!--Grid column-->
-  <div class="col-md-6 mb-4">
+  <div class="col-md-8 mb-4">
     <!--Card-->
     <div class="card">
       <!--Card image-->
@@ -9,11 +9,14 @@
       <!--Card content-->
       <div class="card-body">
         <!--Title-->
-        <h4 class="card-title">회원가입</h4>
+        <h4 class="card-title">회원가입</h4>        
+        <button @click="showmessage()">show</button>
         <!--Text-->
 
-        <div class="md-form form-sm">
-          <input type="text" id="userid" class="form-control form-control-sm" v-model="userid" />
+          <ToastMessage v-if="msgstatus"></ToastMessage>
+        
+        <div class="md-form form-sm">          
+          <input type="text" id="userid" class="form-control form-control-sm is-valid" v-model="userid" />
           <label for="userid">아이디</label>
         </div>
         <div class="md-form form-sm">
@@ -26,7 +29,7 @@
           <label for="password">비밀번호</label>
         </div>
         <div class="md-form form-sm">
-          <input type="text" id="username" class="form-control form-control-sm" v-model="username" />
+          <input type="text" id="username" class="form-control form-control-sm is-invalid" v-model="username" />
           <label for="username">이름</label>
         </div>
         <div class="md-form form-sm">
@@ -43,11 +46,19 @@
 </template>
 
 <script>
+
+import ToastMessage from '@/components/ToastMessage.vue'
+
 export default {
   created() {},
+  
+  components: {
+            ToastMessage
+    },
 
   data() {
     return {
+      msgstatus : true,
       userid: null,
       username: null,
       email: null,
@@ -86,6 +97,9 @@ export default {
           
         })
         .catch();
+    },
+    showmessage : function(){
+      this.msgstatus = !this.msgstatus
     }
   }
 };

@@ -41,8 +41,8 @@
           <ul class="navbar-nav nav-flex-icons">     
          
             <router-link to="/signup" tag="li" class="nav-item">
-              <a href="#" class="nav-link border border-light rounded waves-effect">
-                <i class="fab fa-github mr-2"></i>회원가입
+              <a href="#" class="nav-link border border-light rounded waves-effect">                
+                <i class="far fa-id-card"></i>Join
               </a>
             </router-link>
             

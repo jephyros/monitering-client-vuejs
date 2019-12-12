@@ -10,11 +10,10 @@
       <div class="card-body">
         <!--Title-->
         <h4 class="card-title">회원가입</h4>        
-        <button @click="showmessage()">show</button>
-        <!--Text-->
-
-          <ToastMessage v-if="msgstatus"></ToastMessage>
         
+        <!--Text-->
+          <ToastMessage ></ToastMessage>
+                
         <div class="md-form form-sm">          
           <input type="text" id="userid" class="form-control form-control-sm is-valid" v-model="userid" />
           <label for="userid">아이디</label>
@@ -38,6 +37,7 @@
         </div>
 
         <button type="button" class="btn btn-primary" @click="signUP">가입</button>
+        <button @click="showmessage('메세지보여주기!!!!!!!ABCDEFGHI가나다라마바사',0,0)">show</button>
       </div>
     </div>
     <!--/.Card-->
@@ -49,6 +49,7 @@
 
 import ToastMessage from '@/components/ToastMessage.vue'
 
+import { mapActions } from "vuex";
 export default {
   created() {},
   
@@ -67,6 +68,21 @@ export default {
   },
 
   methods: {
+    ...mapActions({
+      setMessage: "toastmessage/setMessage",      
+    }),
+    showmessage: function(msg,left,top) {
+      let payload = {
+        timeout: 1500,
+        badgetype:"badge-warning",//badge-warning , badge-success, badge-danger
+        msg: msg,
+        left:left,
+        top:top
+      };
+      this.setMessage(payload);
+     
+    },
+
     signUP: function() {
       let userObj = {
         userid: this.userid,
@@ -97,9 +113,6 @@ export default {
           
         })
         .catch();
-    },
-    showmessage : function(){
-      this.msgstatus = !this.msgstatus
     }
   }
 };

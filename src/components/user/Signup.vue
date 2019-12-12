@@ -66,7 +66,9 @@ export default {
 
     methods:{
         //...mapMutations(['addUser']),
-        ...mapActions(['addUser']),
+        ...mapActions({
+            addUser:'user/addUser'
+        }),
         signUP(){
             let userObj ={
                 userId:this.userid,

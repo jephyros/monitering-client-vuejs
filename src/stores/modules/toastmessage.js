@@ -3,10 +3,10 @@ export default {
 
     state: {
         msgstatus: false,
-        badgetype : "badge-warning", //badge-warning , badge-success, badge-danger
+        badgetype: "badge-warning", //badge-warning , badge-success, badge-danger
         msg: "",
-        left:0,
-        top:0
+        left: 0,
+        top: 0
 
 
     },
@@ -27,22 +27,20 @@ export default {
             return state.badgetype
         }
 
-
-
-
     },
+
     mutations: {
         setVisible: (state, payload) => {
             state.msgstatus = true
             state.msg = payload.msg
             state.left = payload.left
             state.top = payload.top
-            if(payload.badgetype){
+            if (payload.badgetype) {
                 state.badgetype = payload.badgetype
-            }else{
+            } else {
                 state.badgetype = "badge-warning"
             }
-            
+
         },
         setInvisible: (state, payload) => {
             state.msgstatus = false
@@ -52,13 +50,13 @@ export default {
 
     },
     actions: {
-        
+
         setMessage: ({ commit }, payload) => {
             commit('setVisible', payload)
-            setTimeout(()=>{
+            setTimeout(() => {
                 commit('setInvisible', false)
-            },payload.timeout)
-            
+            }, payload.timeout)
+
 
         }
 

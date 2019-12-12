@@ -1,30 +1,30 @@
 <template>
-  <main class="mt-5 pt-5">
-    <div class="container">
-      <!--Section: Cards-->
-      <section class="text-center">
-        <!--Grid row-->
-        <div class="row mb-4 wow fadeIn">
-          <Signup />
+    <main class="mt-5 pt-5">
+        <div class="container">
+            <!--Section: Cards-->
+            <section class="text-center">
+                <!--Grid row-->
+                <div class="row mb-4 wow fadeIn">
+                    <Signup />
+                </div>
+            </section>
         </div>
-      </section>
-    </div>
-  </main>
+    </main>
 </template> 
 
 <script>
 import Signup from "@/components/login/Signup.vue";
 
 export default {
-  created() {},
-  components: {
-    Signup
-  },
+    created() {},
+    components: {
+        Signup
+    },
 
-  data() {
-    return {};
-  },
+    data() {
+        return {};
+    },
 
-  methods: {}
+    methods: {}
 };
 </script>

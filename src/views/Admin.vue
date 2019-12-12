@@ -1,25 +1,20 @@
 <template>
     <div>
-        <br/><br/><br/><br/>
-        admin
+        <br />
+        <br />
+        <br />
+        <br />admin
     </div>
 </template>
 
 <script>
 export default {
-    created(){
+    created() {},
 
+    data() {
+        return {};
     },
 
-    data(){
-        return{
-            
-        }
-    },
-
-    methods:{
-
-    }
-    
-}
+    methods: {}
+};
 </script>

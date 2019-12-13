@@ -1,52 +1,59 @@
 <template>
-    
-        <!--Card-->
-        <div class="card">
-            <!--Card image-->
-            <div class="view overlay"></div>
+    <!--Card-->
+    <div class="card">
+        <!--Card image-->
+        <div class="view overlay"></div>
 
-            <!--Card content-->
-            <div class="card-body">
-                <!--Title-->
-                <h4 class="card-title">LOGIN</h4>
+        <!--Card content-->
+        <div class="card-body">
+            <!--Title-->
+            <h4 class="card-title">LOGIN</h4>
 
-                <!--Text-->
-                <ToastMessage></ToastMessage>
-                <ValidationObserver v-slot="{ handleSubmit }">
-                    <form @submit.prevent="handleSubmit(loginProc)">
-                        <ValidationProvider name="userid" rules="required|min:3" v-slot="{ classes,errors }">
-                            <div class="md-form form-sm">
-                                <input
-                                    type="text"
-                                    id="userid"
-                                    class="form-control form-control-sm"
-                                    :class="classes"
-                                    v-model="userid"
-                                />
-                                <label for="userid">아이디</label>
-                            </div>
-                        </ValidationProvider>
-                        <ValidationProvider name="password" rules="required|min:4" v-slot="{ classes,errors }">
-                            <div class="md-form form-sm">
-                                <input
-                                    type="password"
-                                    id="password"
-                                    class="form-control form-control-sm"
-                                    :class="classes"
-                                    v-model="password"
-                                />
-                                <label for="password">비밀번호</label>
-                            </div>
-                        </ValidationProvider>
-                        
-                        <button type="submit" class="btn btn-primary" >LOGIN</button>                
-                    </form>
-                </ValidationObserver>
-                
-            </div>
+            <!--Text-->
+            <ToastMessage></ToastMessage>
+            <ValidationObserver v-slot="{ handleSubmit }">
+                <form @submit.prevent="handleSubmit(loginProc)">
+                    <ValidationProvider
+                        name="userid"
+                        rules="required|min:3"
+                        v-slot="{ classes,errors }"
+                    >
+                        <div class="md-form form-sm">
+                            <input
+                                type="text"
+                                id="userid"
+                                class="form-control form-control-sm"
+                                :class="classes"
+                                v-model="userid"
+                            />
+                            <label for="userid">아이디</label>
+                        </div>
+                    </ValidationProvider>
+                    <ValidationProvider
+                        name="password"
+                        rules="required|min:4"
+                        v-slot="{ classes,errors }"
+                    >
+                        <div class="md-form form-sm">
+                            <input
+                                type="password"
+                                id="password"
+                                class="form-control form-control-sm"
+                                :class="classes"
+                                v-model="password"
+                            />
+                            <label for="password">비밀번호</label>
+                        </div>
+                    </ValidationProvider>
+
+                    <button type="submit" class="btn btn-primary">LOGIN</button>
+                </form>
+                <span>token : {{token}}</span>
+                <button @click="LOGOUT_TOKEN()">lotout</button>
+            </ValidationObserver>
         </div>
-        <!--/.Card-->
-  
+    </div>
+    <!--/.Card-->
 </template>
 
 <script>
@@ -54,7 +61,7 @@ import ToastMessage from "@/components/ToastMessage.vue";
 
 
 
-import { mapActions } from "vuex";
+import { mapActions,mapGetters } from "vuex";
 export default {
     created() {},
 
@@ -70,12 +77,17 @@ export default {
         };
     },
     computed: {
+        ...mapGetters({
+        token: "auth/GET_TOKEN"
         
+        })
     },
 
     methods: {
         ...mapActions({
-            setMessage: "toastmessage/setMessage"
+            SET_MESSAGE: "toastmessage/SET_MESSAGE",
+            SET_TOKEN : "auth/SET_TOKEN",
+            LOGOUT_TOKEN : "auth/LOGOUT_TOKEN"
         }),
         showmessage: function(msg,type, left, top) {
             
@@ -86,7 +98,7 @@ export default {
                 left: left,
                 top: top
             };
-            this.setMessage(payload);
+            this.SET_MESSAGE(payload);
         },
 
         loginProc : function() {
@@ -105,8 +117,9 @@ export default {
                 .post(url, user)
                 .then(result => {
                     let token = result.data.token
-                    //this.showmessage("로그인성공:"+ token,"badge-danger")
-                    //토큰처리
+                    this.showmessage("로그인성공:"+ token,"badge-danger")
+                    //토큰 store 저장
+                    this.SET_TOKEN(token)
                         
                     
                 })

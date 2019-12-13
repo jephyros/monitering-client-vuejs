@@ -30,7 +30,7 @@ export default {
     },
 
     mutations: {
-        setVisible: (state, payload) => {
+        SET_VISIBLE: (state, payload) => {
             state.msgstatus = true
             state.msg = payload.msg
             state.left = payload.left
@@ -42,7 +42,7 @@ export default {
             }
 
         },
-        setInvisible: (state, payload) => {
+        SET_INVISIBLE: (state, payload) => {
             state.msgstatus = false
             state.msg = ""
 
@@ -51,10 +51,10 @@ export default {
     },
     actions: {
 
-        setMessage: ({ commit }, payload) => {
-            commit('setVisible', payload)
+        SET_MESSAGE: ({ commit }, payload) => {
+            commit('SET_VISIBLE', payload)
             setTimeout(() => {
-                commit('setInvisible', false)
+                commit('SET_INVISIBLE', false)
             }, payload.timeout)
 
 

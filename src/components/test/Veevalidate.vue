@@ -60,7 +60,7 @@ export default {
     },
     methods: {
         ...mapActions({
-            setMessage: "toastmessage/setMessage"
+            SET_MESSAGE: "toastmessage/SET_MESSAGE"
         }),
         showmessage: function(invalid, msg, left, top) {
             if (invalid) {
@@ -71,7 +71,7 @@ export default {
                     left: left,
                     top: top
                 };
-                this.setMessage(payload);
+                this.SET_MESSAGE(payload);
             }
         },
         save: function() {

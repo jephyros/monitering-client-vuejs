@@ -1,5 +1,6 @@
 <template>
     <main class="mt-5 pt-5">
+        <main class="mt-5 pt-5">
         <div class="container">
             <!--Section: Cards-->
             <section class="text-center">
@@ -8,7 +9,7 @@
                     <!--Grid column-->    
                         <div class="col-md-2 mb-4"></div>
                         <div class="col-md-8 mb-4">
-                            <Signup />
+                            <Login/>
                         </div>
                         <div class="col-md-2 mb-4"></div>
                 </div>
@@ -16,18 +17,17 @@
             </section>
         </div>
     </main>
-</template> 
+    </main>
+</template>
 
 <script>
-import Signup from "@/components/login/Signup.vue";
-
+import Login from "@/components/login/Login.vue";
 
 export default {
-    created() {},
+    created() {},      
     components: {
-        Signup
+        Login
     },
-
     data() {
         return {};
     },

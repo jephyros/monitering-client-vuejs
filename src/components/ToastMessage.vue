@@ -2,7 +2,7 @@
 
     <div class="position-relative" :style=" 'left: ' + left +'px;top:'+top+'px;height:1px'">
         <transition name="fade">            
-            <div class="badge" :class="badgetype" v-if="msgstatus">{{msg}}</div>
+            <div class="badge"  style="font-size: 20px" :class="badgetype" v-if="msgstatus">{{msg}}</div>
         </transition>
     </div>
 </template>

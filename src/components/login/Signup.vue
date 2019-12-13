@@ -1,6 +1,6 @@
 <template>
     <!--Grid column-->
-    <div class="col-md-8 mb-4">		        	
+    <div class="col-md-8 mb-4">
         <!--Card-->
         <div class="card">
             <!--Card image-->
@@ -13,51 +13,60 @@
 
                 <!--Text-->
                 <ToastMessage></ToastMessage>
-
-                <div class="md-form form-sm">
-                    <input
-                        type="text"
-                        id="userid"
-                        class="form-control form-control-sm"
-                        :class="idValid"
-                        v-model="userid"
-                        :rules="inputRules"
-                    />
-                    <label for="userid">아이디</label>
-                </div>
-                <div class="md-form form-sm">
-                    <input
-                        type="password"
-                        id="password"
-                        class="form-control form-control-sm"
-                        :class="passwordValid"
-                        v-model="password"
-                    />
-                    <label for="password">비밀번호</label>
-                </div>
-                <div class="md-form form-sm">
-                    <input
-                        type="text"
-                        id="username"
-                        class="form-control form-control-sm"
-                        :class="userNameValid"
-                        v-model="username"
-                    />
-                    <label for="username">이름</label>
-                </div>
-                <div class="md-form form-sm">
-                    <input
-                        type="text"
-                        id="email"
-                        class="form-control form-control-sm"
-                        :class="emailValid"
-                        v-model="email"
-                    />
-                    <label for="email">이메일</label>
-                </div>
-
-                <button type="button" class="btn btn-primary" @click="signUP">가입</button>
-                <button @click="showmessage('메세지보여주기!!!!!!!ABCDEFGHI가나다라마바사',0,0)">show</button>
+                <ValidationObserver v-slot="{ handleSubmit }">
+                    <form @submit.prevent="handleSubmit(signUP)">
+                        <ValidationProvider name="userid" rules="required|min:3" v-slot="{ classes,errors }">
+                            <div class="md-form form-sm">
+                                <input
+                                    type="text"
+                                    id="userid"
+                                    class="form-control form-control-sm"
+                                    :class="classes"
+                                    v-model="userid"
+                                />
+                                <label for="userid">아이디</label>
+                            </div>
+                        </ValidationProvider>
+                        <ValidationProvider name="password" rules="required|min:4" v-slot="{ classes,errors }">
+                            <div class="md-form form-sm">
+                                <input
+                                    type="password"
+                                    id="password"
+                                    class="form-control form-control-sm"
+                                    :class="classes"
+                                    v-model="password"
+                                />
+                                <label for="password">비밀번호</label>
+                            </div>
+                        </ValidationProvider>
+                        <ValidationProvider name="username" rules="required|min:2" v-slot="{ classes,errors }">
+                            <div class="md-form form-sm">
+                                <input
+                                    type="text"
+                                    id="username"
+                                    class="form-control form-control-sm"
+                                    :class="classes"
+                                    v-model="username"
+                                />
+                                <label for="username">이름</label>
+                            </div>
+                        </ValidationProvider>
+                        <ValidationProvider name="email" rules="required|email" v-slot="{ classes,errors }">
+                            <div class="md-form form-sm">
+                                <input
+                                    type="text"
+                                    id="email"
+                                    class="form-control form-control-sm"
+                                    :class="classes"
+                                    v-model="email"
+                                />
+                                <label for="email">이메일</label>
+                            </div>
+                        </ValidationProvider>
+                        <button type="submit" class="btn btn-primary" >가입</button>                
+                    </form>
+                </ValidationObserver>
+                
             </div>
         </div>
         <!--/.Card-->
@@ -67,6 +76,12 @@
 
 <script>
 import ToastMessage from "@/components/ToastMessage.vue";
+
+import { extend } from "vee-validate";
+import { required, email, min } from "vee-validate/dist/rules";
+extend("required",required)
+extend("email",email)
+extend("min",min)
 
 import { mapActions } from "vuex";
 export default {
@@ -89,47 +104,18 @@ export default {
         };
     },
     computed: {
-        idValid: function() {
-            if (this.userid) {
-                return "is-valid";
-            }
-            return "";
-        },
-        passwordValid: function() {
-            if (this.password) {
-                return "is-valid";
-            }
-            return "";
-        },
-        userNameValid: function() {
-            if (this.username) {
-                return "is-valid";
-            }
-            return "";
-        },
-        emailValid: function() {
-            let regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-            if (this.email) {
-                let mailstr = this.email;
-
-                if (mailstr.match(regExp) != null) {
-                    return "is-valid";
-                } else {
-                    return "is-invalid";
-                }
-            }
-            return "";
-        }
+        
     },
 
     methods: {
         ...mapActions({
             setMessage: "toastmessage/setMessage"
         }),
-        showmessage: function(msg, left, top) {
+        showmessage: function(msg,type, left, top) {
+            
             let payload = {
                 timeout: 1500,
-                badgetype: "badge-warning", //badge-warning , badge-success, badge-danger
+                badgetype: type,//"badge-warning", //badge-warning , badge-success, badge-danger
                 msg: msg,
                 left: left,
                 top: top
@@ -144,8 +130,9 @@ export default {
                 email: this.email,
                 password: this.password
             };
+            
             this.saveUser(userObj);
-            this.clearForm();
+            
         },
         clearForm: function() {
             (this.userid = null),
@@ -159,10 +146,20 @@ export default {
             this.$http
                 .post(url, user)
                 .then(result => {
-                    if (result.status == 200) {
-                        alert("저장되었습니다.");
+                    if (result.status == 200) {                        
+                        if(result.data.resultcode =="200"){
+                            this.showmessage("저장되었습니다.","badge-success")
+                            this.clearForm();
+
+                        }else if(result.data.resultcode =="D01"){
+                            this.showmessage("이미 존재하는 아이디입니다.","badge-warning")
+                            
+                        }else{
+                            this.showmessage("저장실패.","badge-warning")
+                        }
+                        
                     } else {
-                        alert("저장실패");
+                        this.showmessage("저장실패.","badge-danger")
                     }
                 })
                 .catch();

@@ -7,6 +7,7 @@
                 <div class="row mb-4 wow fadeIn">
                     <Signup />
                 </div>
+                
             </section>
         </div>
     </main>
@@ -14,6 +15,7 @@
 
 <script>
 import Signup from "@/components/login/Signup.vue";
+
 
 export default {
     created() {},

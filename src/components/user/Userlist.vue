@@ -80,9 +80,7 @@ export default {
             const url = "http://localhost:3000/api/v1/users";
             const params = {
                 limit: 10
-            };
-            console.log(this.token);
-
+            };            
             this.$http
                 .get(url, { params: params })
                 .then(result => {

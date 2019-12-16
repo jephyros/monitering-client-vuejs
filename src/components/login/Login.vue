@@ -48,8 +48,8 @@
 
                     <button type="submit" class="btn btn-primary">LOGIN</button>
                 </form>
-                <span>token : {{token}}</span>
-                <button @click="LOGOUT_TOKEN()">lotout</button>
+                <!-- <span>token : {{token}}</span>
+                <button @click="LOGOUT_TOKEN()">lotout</button> -->
             </ValidationObserver>
         </div>
     </div>
@@ -118,6 +118,8 @@ export default {
                     //토큰 store 저장
                     this.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token
                     this.SET_TOKEN(token)
+                    //Home으로 이동
+                    this.$router.replace("/")
                         
                     
                 })

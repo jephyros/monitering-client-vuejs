@@ -42,19 +42,38 @@
 
                     <!-- Right -->
                     <ul class="navbar-nav nav-flex-icons">
-                        <router-link to="/login" tag="li" class="nav-item">
+                        <router-link to="/login" tag="li" class="nav-item" v-if="isToken == false">
                             <a href="#" class="nav-link border border-light rounded waves-effect">
                                 <i class="fas fa-sign-in-alt"></i>
                             </a>
                         </router-link>
 
-                        <router-link to="/signup" tag="li" class="nav-item">
+                        <router-link to="/signup" tag="li" class="nav-item" v-if="isToken == false">
                             <a href="#" class="nav-link border border-light rounded waves-effect">
                                 <i class="fas fa-user-plus"></i>
-                                
                             </a>
                         </router-link>
-
+                        <!-- Dropdown -->
+                        <li class="nav-item dropdown" v-if="isToken">
+                            <a
+                                class="nav-link dropdown-toggle"
+                                id="navbarDropdownMenuLink"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                            ><i class="far fa-address-card"></i></a>
+                            <div
+                                class="dropdown-menu dropdown-primary"
+                                aria-labelledby="navbarDropdownMenuLink"
+                            >
+                                <a class="dropdown-item" href="#">MyPage</a>
+                                <a
+                                    class="dropdown-item"
+                                    href="#"
+                                    @click.prevent="logout()"
+                                >Logout</a>
+                            </div>
+                        </li>
                         <li class="nav-item">
                             <a
                                 href="https://github.com/jephyros"
@@ -74,13 +93,34 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 export default {
     created() {},
 
     data() {
         return {};
     },
-
-    methods: {}
+    computed: {
+        ...mapGetters({
+            token: "auth/GET_TOKEN"
+        }),
+        isToken: function() {
+            
+            if (this.token) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    },
+    methods: {
+        ...mapActions({
+            LOGOUT_TOKEN: "auth/LOGOUT_TOKEN"
+        }),
+        logout : function() {
+            this.LOGOUT_TOKEN();
+            this.$router.replace("/")
+        }
+    }
 };
 </script>

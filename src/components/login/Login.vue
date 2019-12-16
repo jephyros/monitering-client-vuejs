@@ -58,9 +58,6 @@
 
 <script>
 import ToastMessage from "@/components/ToastMessage.vue";
-
-
-
 import { mapActions,mapGetters } from "vuex";
 export default {
     created() {},
@@ -119,6 +116,7 @@ export default {
                     let token = result.data.token
                     this.showmessage("로그인성공:"+ token,"badge-danger")
                     //토큰 store 저장
+                    this.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token
                     this.SET_TOKEN(token)
                         
                     

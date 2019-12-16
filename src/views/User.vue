@@ -6,7 +6,7 @@
                 <!--Grid row-->
                 <div class="row mb-4 wow fadeIn">
                     <Userlist />
-                    <Signup />
+                   
                 </div>
             </section>
         </div>
@@ -15,13 +15,13 @@
 
 <script>
 import Userlist from "@/components/user/Userlist.vue";
-import Signup from "@/components/user/Signup.vue";
+
 
 export default {
     created() {},
     components: {
-        Userlist,
-        Signup
+        Userlist
+        
     },
 
     data() {

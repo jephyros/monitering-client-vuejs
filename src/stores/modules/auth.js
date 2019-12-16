@@ -12,10 +12,14 @@ export default {
 
     mutations: {
         SET_TOKEN : (state, payload) => {
-            state.accessToken = payload
+            state.accessToken = payload            
+            localStorage.accessToken = payload
+
+            
         },
         LOGOUT_TOKEN : (state)  => {
             state.accessToken = null
+            delete localStorage.accessToken
         }
 
     },

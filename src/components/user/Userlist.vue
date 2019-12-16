@@ -1,72 +1,107 @@
 <template>
-  <!--Grid column-->
-  <div class="col-md-6 mb-4">
-    <!--Card-->
-    <div class="card">
-      <!--Card image-->
-      <div class="view overlay"></div>
+    <!--Grid column-->
+    <div class="col-md-6 mb-4">
+        <!--Card-->
+        <div class="card">
+            <!--Card image-->
+            <div class="view overlay"></div>
 
-      <!--Card content-->
-      <div class="card-body">
-        <!--Title-->
-        <h4 class="card-title">회원목록({{count}})</h4>
-        <h2 class="card-title">서울 유저 : {{scount}} ({{ percent }}%)</h2>
+            <!--Card content-->
+            <div class="card-body">
+                <!--Title-->
 
-        <!--Text-->
+                <h4 class="card-title">회원목록</h4>
+                <ToastMessage></ToastMessage>
+                <button class="btn btn-primary" @click="userList()">조회</button>
 
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">아이디</th>
-              <th scope="col">이름</th>
-              <th scope="col">이메일</th>
-              <th scope="col">지역</th>
-            </tr>
-          </thead>
-          <tbody v-for="(user,index) in users" :key="index">
-            <tr>
-              <th scope="row">{{index}}</th>
-              <td>{{user.userId}}</td>
-              <td>{{user.name}}</td>
-              <td>{{user.email}}</td>
-              <td>{{user.address}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+                <!--Text-->
+
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">아이디</th>
+                            <th scope="col">이름</th>
+                            <th scope="col">이메일</th>
+                        </tr>
+                    </thead>
+                    <tbody v-for="(user,index) in users" :key="index">
+                        <tr>
+                            <th scope="row">{{index}}</th>
+                            <td>{{user.userid}}</td>
+                            <td>{{user.username}}</td>
+                            <td>{{user.email}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!--/.Card-->
     </div>
-    <!--/.Card-->
-  </div>
-  <!--Grid column-->
+    <!--Grid column-->
 </template>
 
 <script>
-import { EventBus } from "@/main.js";
-import { mapGetters } from "vuex";
+import ToastMessage from "@/components/ToastMessage.vue";
+import { mapActions, mapGetters } from "vuex";
+
 export default {
-  created() {},
+    created() {},
 
-  data() {
-    return {};
-  },
-  computed: {
-    ...mapGetters({
-      count: "user/usersCount",
-      scount: "user/seoulCount",
-      percent: "user/SEOUL_PERCENT",
-      users: "user/USER_LISTS"
-    })
-    //...mapState(['users'])
+    data() {
+        return {
+            users: null
+        };
+    },
+    computed: {
+        ...mapGetters({
+            token: "auth/GET_TOKEN"
+        })
+    },
+    components: {
+        ToastMessage
+    },
 
-    //...mapGetters(['usersCount','seoulCount','seoulPercent'])
-  },
-  mounted() {
-    // EventBus.$on('signUp',users => {
-    //     this.$store.state.users.push(users)
-    // })
-  },
+    methods: {
+        ...mapActions({
+            SET_MESSAGE: "toastmessage/SET_MESSAGE"
+        }),
+        showmessage: function(msg, type) {
+            let payload = {
+                timeout: 1500,
+                badgetype: type, //"badge-warning", //badge-warning , badge-success, badge-danger
+                msg: msg,
+                left: 0,
+                top: -30
+            };
+            this.SET_MESSAGE(payload);
+        },
+        userList: function() {
+            const url = "http://localhost:3000/api/v1/users";
+            const params = {
+                limit: 10
+            };
+            console.log(this.token);
 
-  methods: {}
+            this.$http
+                .get(url, { params: params })
+                .then(result => {
+                    if (result.data.resultcode == "401") {
+                        this.showmessage(
+                            "권한이 없습니다. 재 로그인을 해주세요.",
+                            "badge-warning"
+                        );
+                        this.$router.replace('login') 
+                    }
+                    this.users = result.data.resultdata
+                })
+                .catch(err => {
+                    this.showmessage(
+                        "조회시 에러가 발생하였습니다.",
+                        "badge-danger"
+                    );
+                });
+        }
+    }
 };
 </script>

@@ -12,6 +12,7 @@ import veeconfig from './config/veeValidateConfig' //vee-validate 설정 및 rul
 import { utils } from '@/mixins/utils'
 
 
+
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
 Vue.prototype._ = lodash

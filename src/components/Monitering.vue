@@ -1,0 +1,63 @@
+<template>
+    <!--Card-->
+    <div class="card">
+        <!--Card image-->
+        <div class="view overlay"></div>
+
+        <!--Card content-->
+        <div class="card-body">
+            <!--Title-->
+            <h4 class="card-title">모니터링</h4>
+            <line-chart :chart-data="datacollection"></line-chart>
+            <button @click="fillData()">Randomize</button>
+        </div>
+    </div>
+    <!--/.Card-->
+</template>
+
+<script>
+import LineChart from "@/charts/LineChart.js";
+
+export default {
+    components: {
+        LineChart
+    },
+    data() {
+        return {
+            datacollection: null
+        };
+    },
+    mounted() {
+        this.fillData();
+    },
+    methods: {
+        fillData() {
+            this.datacollection = {
+                labels: [this.getRandomInt(), this.getRandomInt()],
+                datasets: [
+                    {
+                        label: "Data One",
+                        backgroundColor: "#f87979",
+                        data: [this.getRandomInt(), this.getRandomInt()]
+                    },
+                    {
+                        label: "Data One",
+                        backgroundColor: "#f87979",
+                        data: [this.getRandomInt(), this.getRandomInt()]
+                    }
+                ]
+            };
+        },
+        getRandomInt() {
+            return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
+        }
+    }
+};
+</script>
+
+<style>
+.small {
+    max-width: 600px;
+    margin: 150px auto;
+}
+</style>

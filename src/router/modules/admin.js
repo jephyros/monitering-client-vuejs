@@ -1,8 +1,8 @@
 export default [
     {
-        path: '/admin',
-        name: 'admin',
-        component: () => import('@/views/Admin.vue'),
+        path: '/moitering',
+        name: 'moitering',
+        component: () => import('@/views/Monitering.vue'),
         meta: {authRequired: true}
     },
 ]

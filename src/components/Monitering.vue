@@ -33,22 +33,22 @@ export default {
     methods: {
         fillData() {
             this.datacollection = {
-                labels: [this.getRandomInt(), this.getRandomInt()],
+                labels: [this.getR(), this.getR(), this.getR(), this.getR(), this.getR(), this.getR(), this.getR(), this.getR(), this.getR(), this.getR(), this.getR(), this.getR(), this.getR(), this.getR(), this.getR()],
                 datasets: [
                     {
-                        label: "Data One",
+                        label: "온도",
                         backgroundColor: "#f87979",
-                        data: [this.getRandomInt(), this.getRandomInt()]
+                        data: [this.getR(), this.getR(), this.getR(), this.getR(), this.getR(), this.getR(), this.getR(), this.getR(), this.getR(), this.getR(), this.getR(), this.getR(), this.getR(), this.getR(), this.getR()]
                     },
                     {
-                        label: "Data One",
-                        backgroundColor: "#f87979",
-                        data: [this.getRandomInt(), this.getRandomInt()]
+                        label: "배터리",
+                        backgroundColor: "#4DDF5F",
+                        data: [this.getR(), this.getR(), this.getR(), this.getR(), this.getR(), this.getR(), this.getR(), this.getR(), this.getR(), this.getR(), this.getR(), this.getR(), this.getR(), this.getR(), this.getR()]
                     }
                 ]
             };
         },
-        getRandomInt() {
+        getR() {
             return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
         }
     }

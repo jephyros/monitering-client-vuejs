@@ -1,41 +1,24 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import store from '../stores/store'
+import Home from '@/views/Home.vue'
+import store from '@/stores/store'
+import adminRouter from '@/router/modules/admin';
+import loginRouter from '@/router/modules/login';
+import userRouter from '@/router/modules/user';
 
 Vue.use(VueRouter)
 
-const routes = [
+const routes = [    
   {
     path: '/',
     name: 'home',
     component: Home
   },
-  {
-    path: '/admin',
-    name: 'admin',    
-    component: () => import(/* webpackChunkName: "about" */ '../views/Admin.vue')
-  },
-  {
-    path: '/user',
-    name: 'user',    
-    component: () => import(/* webpackChunkName: "about" */ '../views/User.vue'), 
-    meta: {authRequired: true}
-  },
-  {
-    path: '/signup',
-    name: 'signup',    
-    component: () => import(/* webpackChunkName: "about" */ '../views/login/Signup.vue')
-  },
-  {
-    path: '/login',
-    name: 'login',    
-    component: () => import(/* webpackChunkName: "about" */ '../views/login/Login.vue')
-  }
+  ...adminRouter,
+  ...loginRouter,
+  ...userRouter,
   
 ]
-
-
 const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
@@ -43,8 +26,10 @@ const router = new VueRouter({
   routes
 })
 
+
 router.beforeEach(function (to, from, next) {
     // to: 이동할 url에 해당하는 라우팅 객체
+    
     if (to.matched.some(function(routeInfo) {
       return routeInfo.meta.authRequired;
     })) {
@@ -61,10 +46,12 @@ router.beforeEach(function (to, from, next) {
             left: 0,
             top: -30
         };    
+        
         store.state.toastmessage.msg = "권한이없습니다. 로그인이 필요합니다.";
         store.state.toastmessage.badgetype ="badge-warning";
         store.state.toastmessage.timeout= 1500;        
         store.state.toastmessage.msgstatus = true;
+        store.state.auth.logintourl = to.path //로그인후 이동할 페이지저장
         next('/login')
       }
     } else {

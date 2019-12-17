@@ -56,9 +56,11 @@ export default {
             setTimeout(() => {
                 commit('SET_INVISIBLE', false)
             }, payload.timeout)
-
-
+        },
+        SET_INVISIBLE: ({ commit }, payload) => {
+            commit('SET_INVISIBLE', false)
         }
+
 
     }
 }

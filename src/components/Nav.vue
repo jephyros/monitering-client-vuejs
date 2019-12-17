@@ -48,7 +48,7 @@
                             </a>
                         </router-link>
 
-                        <router-link to="/signup" tag="li" class="nav-item" v-if="isToken == false">
+                        <router-link to="/login/signup" tag="li" class="nav-item" v-if="isToken == false">
                             <a href="#" class="nav-link border border-light rounded waves-effect">
                                 <i class="fas fa-user-plus"></i>
                             </a>

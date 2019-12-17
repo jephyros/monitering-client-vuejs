@@ -90,7 +90,9 @@ import ToastMessage from "@/components/ToastMessage.vue";
 
 import { mapActions } from "vuex";
 export default {
-    created() {},
+    created() {
+        this.SET_INVISIBLE()
+    },
 
     components: {
         ToastMessage
@@ -108,7 +110,9 @@ export default {
 
     methods: {
         ...mapActions({
-            setMessage: "toastmessage/setMessage"
+            SET_MESSAGE: "toastmessage/SET_MESSAGE",
+            SET_INVISIBLE: "toastmessage/SET_INVISIBLE"
+            
         }),
         showmessage: function(msg, type, left, top) {
             let payload = {
@@ -118,7 +122,7 @@ export default {
                 left: left,
                 top: top
             };
-            this.setMessage(payload);
+            this.SET_MESSAGE(payload);
         },
 
         signUP: function() {

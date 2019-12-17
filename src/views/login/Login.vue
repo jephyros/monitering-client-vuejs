@@ -12,8 +12,7 @@
                             <Login/>
                         </div>
                         <div class="col-md-2 mb-4"></div>
-                </div>
-                
+                </div>                
             </section>
         </div>
     </main>

@@ -51,6 +51,7 @@
                 <!-- <span>token : {{token}}</span>
                 <button @click="LOGOUT_TOKEN()">lotout</button> -->
             </ValidationObserver>
+            
         </div>
     </div>
     <!--/.Card-->
@@ -75,7 +76,8 @@ export default {
     },
     computed: {
         ...mapGetters({
-        token: "auth/GET_TOKEN"
+        token: "auth/GET_TOKEN",
+        logintourl:"auth/GET_LOGINTOURL"
         
         })
     },
@@ -83,8 +85,10 @@ export default {
     methods: {
         ...mapActions({
             SET_MESSAGE: "toastmessage/SET_MESSAGE",
+            SET_INVISIBLE: "toastmessage/SET_INVISIBLE",            
             SET_TOKEN : "auth/SET_TOKEN",
-            LOGOUT_TOKEN : "auth/LOGOUT_TOKEN"
+            LOGOUT_TOKEN : "auth/LOGOUT_TOKEN",
+            SET_LOGINTOURL:"auth/SET_LOGINTOURL"
         }),
         showmessage: function(msg,type, left, top) {
             
@@ -114,12 +118,18 @@ export default {
                 .post(url, user)
                 .then(result => {
                     let token = result.data.token
-                    this.showmessage("로그인성공:"+ token,"badge-danger")
+                    //this.showmessage("로그인성공:"+ token,"badge-danger")
                     //토큰 store 저장
                     this.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token
                     this.SET_TOKEN(token)
+                    this.SET_INVISIBLE();
                     //Home으로 이동
-                    this.$router.replace("/")
+                    let url="/"
+                    if(this.logintourl){
+                        url = this.logintourl
+                    }
+                    this.SET_LOGINTOURL("/")
+                    this.$router.replace(url)
                         
                     
                 })

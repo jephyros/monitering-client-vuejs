@@ -5,10 +5,10 @@
         <div class="view overlay"></div>
 
         <!--Card content-->
-        <div class="card-body" >
+        <div class="card-body">
             <!--Title-->
             <h4 class="card-title">모니터링</h4>
-            <line-chart :chart-data="datacollection" ></line-chart>
+            <line-chart :chart-data="datacollection" :options="options" style="height:400px"></line-chart>
             <button @click="fillData()">Randomize</button>
         </div>
     </div>
@@ -25,7 +25,29 @@ export default {
     data() {
         return {
             datacollection: null,
-           
+            options: {
+                scales: {
+                    yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    },
+                    gridLines: {
+                        display: true
+                    }
+                    }],
+                    xAxes: [ {
+                    gridLines: {
+                        display: false
+                    }
+                    }]
+                },
+                legend: {
+                    display: true
+                },
+                responsive: true,
+                maintainAspectRatio: false
+                }
+                    
         };
     },
     computed: {
@@ -33,68 +55,30 @@ export default {
     },
     mounted() {
         this.fillData();
+        //this.renderChart(this.datacollection, this.options)
     },
     methods: {
         fillData() {
-            this.datacollection = {
+            this.datacollection = {                
                 labels: [
-                    this.getR(),
-                    this.getR(),
-                    this.getR(),
-                    this.getR(),
-                    this.getR(),
-                    this.getR(),
-                    this.getR(),
-                    this.getR(),
-                    this.getR(),
-                    this.getR(),
-                    this.getR(),
-                    this.getR(),
-                    this.getR(),
-                    this.getR(),
-                    this.getR()
+                    1,2,3,4,5,6,7,8,9,10
                 ],
-                datasets: [
+                datasets: [                    
                     {
                         label: "온도",
-                        backgroundColor: "#f87979",
+                        fill : false,
+                        borderColor: "#f87979",
                         data: [
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR()
+                            this.getR(),this.getR(),this.getR(),this.getR(),this.getR(),this.getR(),this.getR(),this.getR(),this.getR(),this.getR()
                         ]
+                        
                     },
                     {
                         label: "배터리",
-                        backgroundColor: "#4DDF5F",
+                        fill : false,
+                        borderColor: "#4DDF5F",
                         data: [
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR()
+                            this.getR(),this.getR(),this.getR(),this.getR(),this.getR(),this.getR(),this.getR(),this.getR(),this.getR(),this.getR()
                         ]
                     }
                 ]

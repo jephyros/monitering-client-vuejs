@@ -8,8 +8,11 @@
                 <div class="row mb-4 wow fadeIn">
                     <!--Grid column-->    
                         
-                        <div class="col-md-12 mb-4">
+                        <div class="col-md-6 mb-4">
                             <Monitering/>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <MapGoogle/>
                         </div>
                         
                 </div>                
@@ -21,11 +24,12 @@
 
 <script>
 import Monitering from "@/components/Monitering.vue";
+import MapGoogle from "@/components/MapGoogle.vue";
 
 export default {
     created() {},      
     components: {
-        Monitering
+        Monitering,MapGoogle
     },
     data() {
         return {};

@@ -1,8 +1,19 @@
 import Vue from 'vue'
 import lodash from 'lodash'
 import axios from 'axios'
+import * as VueGoogleMaps from "vue2-google-maps";
 import { ValidationObserver, ValidationProvider } from 'vee-validate';
 
+Vue.use(VueGoogleMaps, {
+    load: {
+      key: "XXX",
+      libraries: "places" // necessary for places input
+    }
+  });
+  console.log('env', JSON.stringify(process.env.NODE_ENV))
+  console.log(">>>>>>>>>>>>>>>>>>",process.env.CIS_GOOGLEMAP_API_KEY)
+  console.log(">>>>>>>>>>>>>>>>>>",process.env.ACI_DATASOURCE_HOST)
+  
 
 
 import App from './App.vue'

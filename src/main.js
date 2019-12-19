@@ -6,14 +6,14 @@ import { ValidationObserver, ValidationProvider } from 'vee-validate';
 
 Vue.use(VueGoogleMaps, {
     load: {
-      key: "XXX",
+      key: process.env.VUE_APP_GOOGLE_MAP_KEY ,
       libraries: "places" // necessary for places input
     }
   });
-  console.log('env', JSON.stringify(process.env.NODE_ENV))
-  console.log(">>>>>>>>>>>>>>>>>>",process.env.CIS_GOOGLEMAP_API_KEY)
-  console.log(">>>>>>>>>>>>>>>>>>",process.env.ACI_DATASOURCE_HOST)
+  console.log('env', JSON.stringify(process.env))  
+  console.log(">>>>>>>>>>>>>>>>>>",process.env.VUE_APP_GOOGLE_MAP_KEY )
   
+   
 
 
 import App from './App.vue'

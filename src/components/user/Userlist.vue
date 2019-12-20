@@ -10,7 +10,8 @@
             <div class="card-body">
                 <!--Title-->
 
-                <h4 class="card-title">회원목록</h4>
+                <h4 class="card-title">회원목록 {{parseJwtdata | formatDate}}</h4>
+                <h5>현재시간 Timestamp : {{curTimestamp}}</h5>
                 <ToastMessage></ToastMessage>
                 <button class="btn btn-primary" @click="userList()">조회</button>
 
@@ -56,7 +57,15 @@ export default {
     computed: {
         ...mapGetters({
             token: "auth/GET_TOKEN"
-        })
+        }),
+        parseJwtdata: function() {
+            let jwtdata = this.parseJwt(this.token);
+            let expireTime = new Date(jwtdata.exp * 1000);
+            return expireTime;
+        },
+        curTimestamp: function() {
+            return Math.floor(+new Date() / 1000);
+        }
     },
     components: {
         ToastMessage
@@ -80,7 +89,7 @@ export default {
             const url = "http://localhost:3000/api/v1/users";
             const params = {
                 limit: 10
-            };            
+            };
             this.$http
                 .get(url, { params: params })
                 .then(result => {
@@ -89,9 +98,9 @@ export default {
                             "권한이 없습니다. 재 로그인을 해주세요.",
                             "badge-warning"
                         );
-                        this.$router.replace('login') 
+                        this.$router.replace("login");
                     }
-                    this.users = result.data.resultdata
+                    this.users = result.data.resultdata;
                 })
                 .catch(err => {
                     this.showmessage(

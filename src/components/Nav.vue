@@ -5,7 +5,7 @@
         <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
             <div class="container">
                 <!-- Brand -->
-                <a class="navbar-brand waves-effect" href="#" target>
+                <a class="navbar-brand waves-effect" href="/" target>
                     <strong class="blue-text">CIS</strong>
                 </a>
 
@@ -107,7 +107,14 @@ export default {
         isToken: function() {
             
             if (this.token) {
-                return true;
+                let jwtdata = this.parseJwt(this.token);                
+                let curtimestamp = Math.floor(+new Date() / 1000)
+                // 토큰만료되면
+                if (jwtdata.exp < curtimestamp) {
+                    return false;
+                }else{
+                    return true;
+                }
             } else {
                 return false;
             }

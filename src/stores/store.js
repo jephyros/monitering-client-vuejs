@@ -20,3 +20,5 @@ export default new Vuex.Store({
 //Refresh 시 토큰 Store 저장 및 axios 에 저장 
 Auth.state.accessToken = localStorage.accessToken
 axios.defaults.headers.common['Authorization'] = 'Bearer ' + Auth.state.accessToken
+
+

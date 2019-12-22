@@ -26,8 +26,10 @@ import { utils } from '@/mixins/utils'
 
 Vue.config.productionTip = false
 Vue.prototype.$http = axios
+
 Vue.prototype._ = lodash
 Vue.mixin(utils)
+
 
 //--------------vee validate setting start---------------------
 Vue.component('ValidationObserver', ValidationObserver)

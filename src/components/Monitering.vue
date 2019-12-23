@@ -25,6 +25,23 @@ export default {
     data() {
         return {
             datacollection: null,
+            labels: [1, 2, 3],
+            datasets : [
+                    {
+                        label: "온도",
+                        backgroundColor: '#66CC00',
+                        fill: true,
+                        //borderColor: "#f87979",
+                        data: [this.getR(), this.getR(),this.getR()]
+                    },
+                    {
+                        label: "쓰레기양",
+                        //fill: true,
+                        backgroundColor: '#FF6666',
+                        //backgroundColor:"#4DDF5F",
+                        data: [this.getR(), this.getR(),this.getR()]
+                    }
+                ],
             options: {
                 scales: {
                     yAxes: [
@@ -61,47 +78,18 @@ export default {
     methods: {
         fillData() {
             this.datacollection = {
-                labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-                datasets: [
-                    {
-                        label: "온도",
-                        fill: false,
-                        borderColor: "#f87979",
-                        data: [
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR()
-                        ]
-                    },
-                    {
-                        label: "배터리",
-                        fill: false,
-                        borderColor: "#4DDF5F",
-                        data: [
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR(),
-                            this.getR()
-                        ]
-                    }
-                ]
+                labels: this.labels,
+                datasets: this.datasets,
             };
         },
         getR() {
             return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
+        },
+        dynamicColors() {
+            var r = Math.floor(Math.random() * 255);
+            var g = Math.floor(Math.random() * 255);
+            var b = Math.floor(Math.random() * 255);
+            return "rgba(" + r + "," + g + "," + b + ",0.8)";
         },
         getDeviceLastStatus() {       
             
@@ -136,7 +124,46 @@ export default {
             this.$http
                 .post(url, params,{headers:headers})
                 .then(result => {
-                    console.log(result);
+                    
+                    let values = result.data.data
+                    let labelArray = new Array();
+                    let datasets = new Array();
+                    let datasetslocal1 = new Array();
+                    let datasetslocal2 = new Array();
+                    let totcnt = result.data.data.length
+                    let i = 0;
+                    values.forEach((value,index) =>{
+                        //console.log(value.deviceid)
+                        labelArray[index] = value.deviceid
+                        datasetslocal1[index] = value.temp_brd
+                        datasetslocal2[index] = value.level
+                        
+                        
+                    })
+                    datasets[0] = {
+                                label: "온도",
+                                backgroundColor: '#66CC00',
+                                fill: true,
+                                //borderColor: "#f87979",
+                                data: datasetslocal1
+                            }
+                    datasets[1] = {
+                        label: "쓰레기양",
+                        backgroundColor: '#FF6666',
+                        fill: true,
+                        //borderColor: "#f87979",
+                        data: datasetslocal2
+                    }
+                    
+
+                    this.labels = labelArray
+                    this.datasets = datasets
+
+                    this.datacollection = {
+                        labels: this.labels,
+                        datasets: this.datasets,
+                    };
+                    
                 })
                 .catch(err => {
                     console.log('Error',err.toString())

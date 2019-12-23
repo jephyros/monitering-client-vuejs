@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/views/Home.vue'
 import store from '@/stores/store'
-import adminRouter from '@/router/modules/admin';
+import moiteringRouter from '@/router/modules/moitering';
 import loginRouter from '@/router/modules/login';
 import userRouter from '@/router/modules/user';
 
@@ -14,7 +14,7 @@ const routes = [
         name: 'home',
         component: Home
     },
-    ...adminRouter,
+    ...moiteringRouter,
     ...loginRouter,
     ...userRouter,
 

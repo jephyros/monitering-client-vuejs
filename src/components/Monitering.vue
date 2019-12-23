@@ -9,7 +9,7 @@
             <!--Title-->
             <h4 class="card-title">모니터링</h4>
             <line-chart :chart-data="datacollection" :options="options" style="height:400px"></line-chart>
-            <button @click="getDeviceLastStatus()">Randomize</button>
+            <button @click="getDeviceLastStatus()">조회</button>
         </div>
     </div>
     <!--/.Card-->
@@ -103,10 +103,28 @@ export default {
         getR() {
             return Math.floor(Math.random() * (50 - 5 + 1)) + 5;
         },
-        getDeviceLastStatus() {
+        getDeviceLastStatus() {       
+            
+            
+            // const url = process.env.VUE_APP_API_BASE_URL + "/api/v1/isolarbins"
+            // const headers = {                
+            //     'X-Api-Key': process.env.VUE_APP_API_KEY
+            // }
+            // const params = {
+            //     devicetype:'ISOL'
+            // };
+            // this.$http
+            //     .get(url,{ params: params,headers:headers })                
+            //     .then(result => {
+            //         console.log(result);
+            //     })
+            //     .catch(err => {
+            //         console.log('Error',err.toString())
+            //     });
+            
             const url = process.env.VUE_APP_API_BASE_URL + "/api/v1/isolarbins/"
             const headers = {
-                "x-api-key": process.env.VUE_APP_API_KEY
+                "X-Api-Key": process.env.VUE_APP_API_KEY
             }
             const params = {
                 deviceids: [
@@ -123,6 +141,8 @@ export default {
                 .catch(err => {
                     console.log('Error',err.toString())
                 });
+
+
             //     final String url = ACIAWSAPIBASEURL + "/api/v1/isolarbins/";
             // RestTemplate restTemplate = new RestTemplate();
             // //header
